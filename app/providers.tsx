@@ -1,3 +1,87 @@
+// "use client";
+
+// import { ThemeProvider, CssBaseline, createTheme, Box } from "@mui/material";
+// import { CartProvider } from "./context/CartContext";
+// import Navbar from "./components/Navbar";
+// import { NotificationProvider } from "./context/NotificationContext";
+// import Footer from "./components/Footer";
+
+// const theme = createTheme({
+//   palette: {
+//     mode: "light",
+//     // Soft pastel brand
+//     primary: {
+//       main: "#4F7FFF", // modern blue
+//       dark: "#3B63D1",
+//       contrastText: "#FFFFFF",
+//     },
+//     secondary: {
+//       // for accents, badges, etc.
+//       main: "#8B5CF6",
+//     },
+//     background: {
+//       default: "#F7F9FC",
+//       paper: "#FFFFFF",
+//     },
+//     text: {
+//       primary: "#1E293B",
+//       secondary: "#64748B",
+//     },
+//   },
+//   shape: {
+//     borderRadius: 8,
+//   },
+//   typography: {
+//     fontFamily: `"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`,
+//     h4: {
+//       fontWeight: 700,
+//       letterSpacing: 0.3,
+//     },
+//     button: {
+//       textTransform: "none",
+//       fontWeight: 600,
+//     },
+//   },
+//   components: {
+//     MuiButton: {
+//       styleOverrides: {
+//         root: {
+//           borderRadius: 999,
+//         },
+//       },
+//     },
+//   },
+// });
+
+// export function Providers({ children }: { children: React.ReactNode }) {
+//   return (
+//     <ThemeProvider theme={theme}>
+//       <CssBaseline />
+//       <NotificationProvider>
+//         <CartProvider>
+//           {/* Full-page flex layout: header | main | footer */}
+//           <Box
+//             sx={{
+//               minHeight: "100vh",
+//               display: "flex",
+//               flexDirection: "column",
+//               background:
+//                 "linear-gradient(180deg, rgba(79,127,255,0.10) 0%, rgba(79,127,255,0.04) 45%, rgba(15,23,42,0.02) 100%)",
+//             }}
+//           >
+//             <Navbar />
+
+//             <Box component="main" sx={{ flex: 1 }}>
+//               {children}
+//             </Box>
+
+//             <Footer />
+//           </Box>
+//         </CartProvider>
+//       </NotificationProvider>
+//     </ThemeProvider>
+//   );
+// }
 "use client";
 
 import { ThemeProvider, CssBaseline, createTheme, Box } from "@mui/material";
@@ -9,43 +93,72 @@ import Footer from "./components/Footer";
 const theme = createTheme({
   palette: {
     mode: "light",
-    // Soft pastel brand
     primary: {
-      main: "#4F7FFF", // modern blue
-      dark: "#3B63D1",
+      main: "#5F6F65",
+      dark: "#4E5C53",
       contrastText: "#FFFFFF",
     },
     secondary: {
-      // for accents, badges, etc.
-      main: "#8B5CF6",
+      main: "#D7E0DA",
+      contrastText: "#223127",
     },
     background: {
-      default: "#F7F9FC",
+      default: "#EEF2F7",
       paper: "#FFFFFF",
     },
     text: {
-      primary: "#1E293B",
-      secondary: "#64748B",
+      primary: "#142038",
+      secondary: "#5E6B7E",
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 10,
   },
   typography: {
     fontFamily: `"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`,
+    h2: {
+      fontWeight: 800,
+      letterSpacing: "-0.03em",
+    },
     h4: {
+      fontWeight: 800,
+      letterSpacing: "-0.03em",
+    },
+    h6: {
       fontWeight: 700,
-      letterSpacing: 0.3,
     },
     button: {
       textTransform: "none",
-      fontWeight: 600,
+      fontWeight: 700,
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: "#EEF2F7",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
+          borderRadius: 999,
+          boxShadow: "none",
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: "0 18px 40px rgba(25, 35, 52, 0.06)",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          fontWeight: 700,
           borderRadius: 999,
         },
       },
@@ -59,14 +172,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <CssBaseline />
       <NotificationProvider>
         <CartProvider>
-          {/* Full-page flex layout: header | main | footer */}
           <Box
             sx={{
               minHeight: "100vh",
               display: "flex",
               flexDirection: "column",
-              background:
-                "linear-gradient(180deg, rgba(79,127,255,0.10) 0%, rgba(79,127,255,0.04) 45%, rgba(15,23,42,0.02) 100%)",
+              background: "linear-gradient(180deg, #F4F7FB 0%, #EEF2F7 100%)",
             }}
           >
             <Navbar />

@@ -18,10 +18,10 @@ type CartState = {
 
 type Action =
   | { type: "ADD"; product: Product }
-  | { type: "REMOVE"; id: number }
+  | { type: "REMOVE"; id: string }
   | { type: "CLEAR" }
-  | { type: "INCREMENT"; id: number }
-  | { type: "DECREMENT"; id: number }
+  | { type: "INCREMENT"; id: string }
+  | { type: "DECREMENT"; id: string }
   | { type: "HYDRATE"; state: CartState };
 
 const CART_KEY = "ecom_cart_v1";
@@ -29,10 +29,10 @@ const CART_KEY = "ecom_cart_v1";
 const CartContext = createContext<{
   state: CartState;
   addToCart: (p: Product) => void;
-  removeFromCart: (id: number) => void;
+  removeFromCart: (id: string) => void;
   clearCart: () => void;
-  increment: (id: number) => void;
-  decrement: (id: number) => void;
+  increment: (id: string) => void;
+  decrement: (id: string) => void;
 } | null>(null);
 
 const initialState: CartState = { items: [] };
@@ -46,7 +46,7 @@ function reducer(state: CartState, action: Action): CartState {
       if (existing) {
         return {
           items: state.items.map((i) =>
-            i.id === action.product.id ? { ...i, quantity: i.quantity + 1 } : i
+            i.id === action.product.id ? { ...i, quantity: i.quantity + 1 } : i,
           ),
         };
       }
@@ -57,7 +57,7 @@ function reducer(state: CartState, action: Action): CartState {
     case "INCREMENT":
       return {
         items: state.items.map((i) =>
-          i.id === action.id ? { ...i, quantity: i.quantity + 1 } : i
+          i.id === action.id ? { ...i, quantity: i.quantity + 1 } : i,
         ),
       };
 
@@ -65,7 +65,7 @@ function reducer(state: CartState, action: Action): CartState {
       return {
         items: state.items
           .map((i) =>
-            i.id === action.id ? { ...i, quantity: i.quantity - 1 } : i
+            i.id === action.id ? { ...i, quantity: i.quantity - 1 } : i,
           )
           .filter((i) => i.quantity > 0), // remove if hits 0
       };
@@ -117,10 +117,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const value = {
     state,
     addToCart: (product: Product) => dispatch({ type: "ADD", product }),
-    removeFromCart: (id: number) => dispatch({ type: "REMOVE", id }),
+    removeFromCart: (id: string) => dispatch({ type: "REMOVE", id }),
     clearCart: () => dispatch({ type: "CLEAR" }),
-    increment: (id: number) => dispatch({ type: "INCREMENT", id }),
-    decrement: (id: number) => dispatch({ type: "DECREMENT", id }),
+    increment: (id: string) => dispatch({ type: "INCREMENT", id }),
+    decrement: (id: string) => dispatch({ type: "DECREMENT", id }),
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

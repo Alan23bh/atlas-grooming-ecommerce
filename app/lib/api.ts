@@ -1,61 +1,31 @@
 import { Product } from "../types/Product";
-import { productsData } from "./productsData";
-
-// const BASE_URL = "https://fakestoreapi.com";
-
-// export async function getProducts(): Promise<Product[]> {
-//   try {
-//     const res = await fetch(`${BASE_URL}/products`, {
-//       cache: "no-store",
-//     });
-
-//     if (!res.ok) {
-//       console.error("Failed to fetch products:", res.status);
-//       return [];
-//     }
-
-//     return await res.json();
-//   } catch (error) {
-//     console.error("Error fetching products:", error);
-//     return [];
-//   }
-// }
-
-// export async function getProduct(id: string): Promise<Product | null> {
-//   const products = await getProducts();
-//   const numericId = Number(id);
-
-//   const product = products.find((p) => p.id === numericId);
-
-//   if (!product) {
-//     console.error(`Product ${id} not found.`);
-//     return null;
-//   }
-
-//   return product;
-// }
-
-function sleep(ms: number) {
-  return new Promise((res) => setTimeout(res, ms));
-}
+import { supabase } from "./supabase";
 
 export async function getProducts(): Promise<Product[]> {
-  // Simulate real network latency so loading UI can be seen
-  await sleep(250);
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-  // still async so you don’t have to change other code
-  return productsData;
+  if (error) {
+    console.error("Error fetching products:", error.message);
+    return [];
+  }
+
+  return data ?? [];
 }
 
 export async function getProduct(id: string): Promise<Product | null> {
-  const numericId = Number(id);
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-  const product = productsData.find((p) => p.id === numericId);
-
-  if (!product) {
-    console.error(`Product ${id} not found.`);
+  if (error) {
+    console.error(`Error fetching product ${id}:`, error.message);
     return null;
   }
 
-  return product;
+  return data;
 }
